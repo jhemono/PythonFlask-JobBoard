@@ -63,7 +63,7 @@ def employer(employer_id):
         [employer_id],
     )
     reviews = execute_sql(
-        "select review, rating, title, date, status from review where employer_id = ?",
+        "SELECT review, rating, title, date, status FROM review JOIN employer ON employer.id = review.employer_id WHERE employer.id = ?",
         [employer_id],
     )
     return render_template(
