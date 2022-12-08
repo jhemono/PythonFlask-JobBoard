@@ -83,7 +83,6 @@ def test_app_review_route_module7():
 
 @pytest.mark.test_app_review_post_request_check_module7
 def test_app_review_post_request_check_module7():
-    return
     review_function = "review" in dir(app)
     assert review_function, "Have you created the `review` function?"
 
