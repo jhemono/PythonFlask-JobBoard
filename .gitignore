@@ -66,3 +66,7 @@ instance/
 # Virtualenv
 venv/
 .venv/
+
+# Binary
+
+*.sqlite
