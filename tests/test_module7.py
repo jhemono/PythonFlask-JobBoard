@@ -113,25 +113,29 @@ def test_app_review_post_request_check_module7():
     )
     review = {
         "targets/id": "review",
-        "value/slice/value/s": "review",
+        "value/slice/s": "review",
+        "value/slice/value": "review",
         "value/value/attr": "form",
         "value/value/value/id": "request",
     }
     rating = {
         "targets/id": "rating",
-        "value/slice/value/s": "rating",
+        "value/slice/s": "rating",
+        "value/slice/value": "rating",
         "value/value/attr": "form",
         "value/value/value/id": "request",
     }
     title = {
         "targets/id": "title",
-        "value/slice/value/s": "title",
+        "value/slice/s": "title",
+        "value/slice/value": "title",
         "value/value/attr": "form",
         "value/value/value/id": "request",
     }
     status = {
         "targets/id": "status",
-        "value/slice/value/s": "status",
+        "value/slice/s": "status",
+        "value/slice/value": "status",
         "value/value/attr": "form",
         "value/value/value/id": "request",
     }
@@ -171,6 +175,10 @@ def test_app_review_insert_review_module7():
     assert review_function, "Have you created the `review` function?"
 
     execute_sql = "execute_sql:INSERT INTO review (review, rating, title, date, status, employer_id) VALUES (?, ?, ?, ?, ?, ?):[{'id': 'review'}, {'id': 'rating'}, {'id': 'title'}, {'id': 'date'}, {'id': 'status'}, {'id': 'employer_id'}]:commit:True"
+    for item in get_functions(app.review):
+        if item.startswith("execute_sql"):
+            print(item)
+
     result = [
         item for item in get_functions(app.review) if item.startswith(execute_sql)
     ]
@@ -189,10 +197,10 @@ def test_app_redirect_to_employer_module7():
     url_for_exists = "url_for" in dir(app)
     assert url_for_exists, "`url_for` has not been imported from flask."
 
-    redirect_call = "redirect:employer:url_for:employer_id:employer_id" in get_functions(
-        app.review
-    ) or "redirect:employer:employer:url_for:employer_id:employer_id" in get_functions(
-        app.review
+    redirect_call = (
+        "redirect:employer:url_for:employer_id:employer_id" in get_functions(app.review)
+        or "redirect:employer:employer:url_for:employer_id:employer_id"
+        in get_functions(app.review)
     )
     assert redirect_call, "In the `if` are you redirecting back to the employer page?"
 

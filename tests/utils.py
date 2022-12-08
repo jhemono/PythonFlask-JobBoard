@@ -55,6 +55,7 @@ def get_functions(source):
             for arg in node.args:
                 arg_dict = build_dict(arg)
                 arg_dict.pop("value", None)
+                arg_dict.pop("dims", None)
                 for val in arg_dict.values():
                     args.append(str(val))
 
